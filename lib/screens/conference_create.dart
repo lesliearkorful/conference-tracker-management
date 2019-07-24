@@ -8,12 +8,8 @@ class CreateConferencePage extends StatefulWidget {
 }
 
 class _CreateConferencePageState extends State<CreateConferencePage> {
-  //initialize the Bloc
   Bloc bloc = Bloc();
-  //declare a validation variable and set it to empty,
-  //because textfields are empty when screen is built.
-  //The validator variable holds errors to prevent data submission.
-  //If set to none, submission can occur.
+
   TalkValidateError validator;
   int talkDuration = 0;
   String talkTitle;
@@ -40,10 +36,8 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
                 contentPadding: EdgeInsets.all(12),
                 hintText: 'Talk Title',
                 border: UnderlineInputBorder(),
-                //Display error text based on the value  of the corresponding key in the talkValidatorText map
                 errorText: talkValidatorText[validator],
               ),
-              //The onChanged function is called on every keystroke
               onChanged: (value) {
                 setState(() {
                   //check if the value contains a number before storing it.
@@ -64,7 +58,6 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 20),
             child: TextField(
-              //TextInputType.number ensures only integers are typed.
               keyboardType: TextInputType.number,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
@@ -94,9 +87,8 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
               textColor: Colors.white,
               onPressed: () {
                 if(validator == TalkValidateError.none) {
-                  //Pass the new Talk as an argument to the Bloc function
+
                   bloc.newTalk(Talk(name: talkTitle, minutes: talkDuration ));
-                  //Go back to previous page after the previous function is done
                   Navigator.pop(context);
 
                 } else if(talkTitle == null) {

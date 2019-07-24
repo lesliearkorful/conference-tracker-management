@@ -44,6 +44,7 @@ class _ConferencesPageState extends State<ConferencesPage> {
           )
         ],
       ),
+      
       //StreamBuilder Creates a wigdet that builds itself based on the latest snapshot of interaction with the specified [stream] and whose build strategy is given by [builder].
       body: StreamBuilder(
         stream: bloc.talksObservable,
@@ -57,7 +58,7 @@ class _ConferencesPageState extends State<ConferencesPage> {
             itemBuilder: (BuildContext context, index) {
 
               Talk talk = talks.data[index];
-              String minutesForm = talk.minutes == 1 ? '${talk.minutes} minute' : talk.minutes ==5 ? 'lightning' : '${talk.minutes} minutes';
+              String minutesForm = talk.minutes == 1 ? '${talk.minutes} minute' : talk.minutes == 5 ? 'lightning' : '${talk.minutes} minutes';
 
               return ListTile(
                 contentPadding: EdgeInsets.fromLTRB(20, 5, 14, 0),

@@ -17,13 +17,8 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
 
   Bloc bloc = Bloc();
 
-  //declare a validation variable and set it to empty,
-  //because textfields are empty when screen is built.
-  //This variable holds errors to prevent data submission.
-  //If set to none, submission can occur.
   TalkValidateError validator = TalkValidateError.none;
 
-  //Text controllers are for editable text fields
   TextEditingController titleController = TextEditingController();
   TextEditingController durationController = TextEditingController();
 
@@ -62,10 +57,10 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              //call the function in the Bloc for deletion
+
               bloc.deleteTalk(talk);
-              //Go to previous page after the Talk has been deleted.
               Navigator.pop(context);
+
             },
           )
         ],
@@ -86,10 +81,8 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
                 contentPadding: EdgeInsets.all(12),
                 hintText: 'Talk Title',
                 border: UnderlineInputBorder(),
-                //Display error text based on the value  of the corresponding key in the talkValidatorText map
                 errorText: talkValidatorText[validator],
               ),
-              //The onChanged function is called on every keystroke
               onChanged: (value) {
                 setState(() {
                   //check if the value contains a number before storing it.
@@ -120,7 +113,6 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
                 hintText: 'Talk Duration (in minutes)',
                 border: UnderlineInputBorder(),
               ),
-              //The onChanged function is called on every keystroke
               onChanged: (duration) {
                 setState(() {
                   //convert duration to integer and store.
@@ -143,9 +135,8 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
               textColor: Colors.white,
               onPressed: () {
                 if(validator == TalkValidateError.none) {
-                  //Pass the original Talk and the new Talk to theBloc function
+
                   bloc.editTalk(talk, Talk(name: talkTitle, minutes: talkDuration));
-                  //Go back to previous page after the previous function is done
                   Navigator.pop(context);
 
                 } else if(talkTitle == null) {

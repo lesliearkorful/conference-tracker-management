@@ -43,16 +43,13 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
     generated.add(ScheduleItem(track: track, type: ScheduleItemType.track));
 
     for (var i = 0; i <= (temp.length + 1); i++) {
-      print('iteration: $i');
 
       for(int index = i; index < temp.length; index++) {
 
         var item = temp[index];
-        print('currently assigned: ${assigned.length}');
 
         if(assigned.contains(item)) {
-          print('ALREADY ASSIGNED : ${item.name}');
-          break;
+          continue;
 
         } else {
 
@@ -68,9 +65,6 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
             if((morningMinutes%item.minutes == 0) ||
               
               (commonDurations.contains(item.minutes-morningMinutes)) ) {
-
-                print('morning  : $morningMinutes');
-
                 morningMinutes -= item.minutes;
 
                 final assignedTalk = ScheduleItem(
@@ -84,11 +78,7 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
                 assigned.add(item);
                 generated.add(assignedTalk);
 
-                print('ADDED  : ${item.name}');
-                print('${item.minutes} deducted. $morningMinutes left');
-
             } else {
-                print('SKIPPED  : ${item.name}. $morningMinutes left');
                 continue;
               }
 
@@ -106,12 +96,8 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
             if((afternoonMinutes%item.minutes == 0) ||
               (commonDurations.contains(item.minutes % afternoonMinutes))) {
 
-              print('afternoon  : $afternoonMinutes');
-
               if((afternoonMinutes == 240) &&
                 (generated.contains(lunch) == false)) {
-                  print('\nBEGIN LUNCH  : ${item.name}');
-                  print('afternoon minutes  : $afternoonMinutes: lunch presence: ${generated.contains(lunch)}');
                   generated.add(lunch);
               }
 
@@ -128,13 +114,7 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
               generated.add(assignedTalk);
               assigned.add(item);
 
-              print('ADDED  : ${item.name}');
-              print('${item.minutes} deducted. $afternoonMinutes left');
-
-              print('LUNCH CHECK  : $afternoonMinutes: lunch presence: ${generated.contains(lunch)}');
-
             } else {
-              print('SKIPPED  : ${item.name}. $afternoonMinutes left');
               continue;
             }          
           } else {
@@ -149,7 +129,6 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
                             
             //increase track count when all sessions are occupied
             track++;
-            print('\nNEW TRACK ADDED');
             //reset sessions for new track
             morningMinutes = 180;
             afternoonMinutes = 240;
@@ -190,11 +169,6 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
 
     //update the schedule view with the generated schedule
     setState(() => scheduleView = generated);
-
-    generated.forEach((item) => print('${item.minutes} mins : ${item.name}. track: ${item.track}. type:${item.type}'));
-
-    assigned.forEach((item) => print('ASSIGNED: ${item.name}'));
-
   }
 
   @override

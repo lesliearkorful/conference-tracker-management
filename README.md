@@ -4,11 +4,11 @@ This is a Flutter project for tracking conferences and generating a schedule fro
 
 ## Getting Started
 
-- This project is a starting point for a Flutter application.
+- You need to have the [Flutter SDK installed.](https://flutter.dev/docs/get-started/install)
 - Clone this repository on your computer with the following command: `git clone https://github.com/lesliearkorful/conference-tracker-management.git`
 
 ## Dependencies
-This project uses rxDart for streams
+This project uses the [rxDart package](https://pub.dev/packages/rxdart) for streams
 ```yaml
 dependencies:
   rxdart: ^0.22.0

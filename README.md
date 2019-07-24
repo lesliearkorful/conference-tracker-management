@@ -13,7 +13,8 @@ All talk lengths are either in minutes (not hours) or lightning (5 minutes).
 ## Getting Started
 
 - You need to have the [Flutter SDK installed.](https://flutter.dev/docs/get-started/install)
-- Clone this repository on your computer with the following command: `git clone https://github.com/lesliearkorful/conference-tracker-management.git`
+- Clone this repository on your computer with the following command:
+`git clone https://github.com/lesliearkorful/conference-tracker-management.git`
 
 ## Dependencies
 This project uses the [rxDart package](https://pub.dev/packages/rxdart) for streams

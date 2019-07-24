@@ -6,10 +6,6 @@ This is a Flutter project for tracking conferences and generating a schedule fro
 
 This project is a starting point for a Flutter application.
 
-## Project Setup
-
-You need to have the Flutter SDK installed.
-
 ## Dependencies
 This project uses rxDart for streams
 ```yaml

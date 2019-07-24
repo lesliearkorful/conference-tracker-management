@@ -18,7 +18,7 @@ class _ConferencesPageState extends State<ConferencesPage> {
   @override
   void initState() {
     super.initState();
-    //call the initialize function inside the Bloc when widget is mounted
+    //initialize  Bloc when widget is mounted
     bloc.initialize();
   }
 
@@ -45,37 +45,39 @@ class _ConferencesPageState extends State<ConferencesPage> {
         ],
       ),
       
-      //StreamBuilder Creates a wigdet that builds itself based on the latest snapshot of interaction with the specified [stream] and whose build strategy is given by [builder].
-      body: StreamBuilder(
-        stream: bloc.talksObservable,
-        builder: (BuildContext context, AsyncSnapshot<List>talks) {
+      body: SafeArea(
+        child: StreamBuilder(
+          stream: bloc.talksObservable,
+          builder: (BuildContext context, AsyncSnapshot<List>talks) {
 
-          generatedScheduleData = talks.data;
+            generatedScheduleData = talks.data;
 
-          return ((talks.data != null) && (talks.data.length > 0)) ? ListView.builder(
-            padding: EdgeInsets.only(bottom: 80),
-            itemCount: talks.data.length,
-            itemBuilder: (BuildContext context, index) {
+            return ((talks.data != null) && (talks.data.length > 0)) ?
+              ListView.builder(
+                padding: EdgeInsets.only(bottom: 80),
+                itemCount: talks.data.length,
+                itemBuilder: (BuildContext context, index) {
 
-              Talk talk = talks.data[index];
-              String minutesForm = talk.minutes == 1 ? '${talk.minutes} minute' : talk.minutes == 5 ? 'lightning' : '${talk.minutes} minutes';
+                  Talk talk = talks.data[index];
+                  String minutesForm = talk.minutes == 1 ? '${talk.minutes} minute' : talk.minutes == 5 ? 'lightning' : '${talk.minutes} minutes';
 
-              return ListTile(
-                contentPadding: EdgeInsets.fromLTRB(20, 5, 14, 0),
-                title: Text('${talk.name}', textScaleFactor: 1.0,),
-                subtitle: Text('$minutesForm',textScaleFactor: 1.0),
-                trailing: Icon(Icons.chevron_right),
-                onTap: () => Navigator.push(context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ConferenceDetailsPage(data: talk)
-                  )
-                ),
-              );
-            },
-          ) : Center(
-            child: Text('Nothing to show yet.', textScaleFactor: 1.4),
-          );
-        },
+                  return ListTile(
+                    contentPadding: EdgeInsets.fromLTRB(20, 5, 14, 0),
+                    title: Text('${talk.name}', textScaleFactor: 0.9,),
+                    subtitle: Text('$minutesForm',textScaleFactor: 0.9),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () => Navigator.push(context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ConferenceDetailsPage(data: talk)
+                      )
+                    ),
+                  );
+                },
+              ) : Center(
+                child: Text('Nothing to show yet.', textScaleFactor: 1.4),
+            );
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(

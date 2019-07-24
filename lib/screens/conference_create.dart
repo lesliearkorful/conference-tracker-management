@@ -9,7 +9,6 @@ class CreateConferencePage extends StatefulWidget {
 
 class _CreateConferencePageState extends State<CreateConferencePage> {
   Bloc bloc = Bloc();
-
   TalkValidateError validator;
   int talkDuration = 0;
   String talkTitle;
@@ -26,7 +25,7 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
       body: ListView(
         children: <Widget>[
 
-          //textfield for talk name.no integers allowed
+          //textfield for talk name: no integers allowed
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 0),
             child: TextField(
@@ -40,8 +39,7 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
               ),
               onChanged: (value) {
                 setState(() {
-                  //check if the value contains a number before storing it.
-                  //If there's an error, update the validate to reflect it.
+                  //check for errors
                   if(value.contains(new RegExp(r'[0-9]'))) {
                     validator = TalkValidateError.noIntegerAllowed;
                     talkTitle = value;
@@ -67,7 +65,6 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
               ),
               onChanged: (duration) {
                 setState(() {
-                  //convert duration to integer and store.
                   talkDuration = int.parse(duration);
                 });
               },
@@ -82,7 +79,9 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
               elevation: 0,
               padding: EdgeInsets.all(20),
               color: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8)
+              ),
               child: Text('Add New Talk', textScaleFactor: 1.0),
               textColor: Colors.white,
               onPressed: () {

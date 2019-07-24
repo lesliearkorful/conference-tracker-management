@@ -28,7 +28,9 @@ class ScheduleItem {
 
 enum ScheduleItemType {
   talk,
-  track
+  lunch,
+  track,
+  networking,
 }
 
 //initial data dump

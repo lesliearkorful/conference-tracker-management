@@ -7,7 +7,6 @@ class ConferenceDetailsPage extends StatefulWidget {
   final Talk data;
 
   @override
-  //Pass down the data to the State of the widget.
   _ConferenceDetailsPageState createState() => _ConferenceDetailsPageState(data);
 }
 
@@ -28,19 +27,17 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
   @override
   void initState() {
     super.initState();
-    //set initial text for the textfields with the passed Talk data
     titleController.text = talkTitle = talk.name;
     talkDuration = talk.minutes;
 
     //the text controller can only handle strings.
-    //the duration needs to be converted to a string before being set
     durationController.text = talk.minutes.toString();
   }
 
   @override
   void dispose() {
     super.dispose();
-    //Dispose the text controllers when the widget is unmounted
+    //Dispose text controllers when widget is unmounted
     titleController.dispose();
     durationController.dispose();
   }
@@ -68,13 +65,11 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
       body: ListView(
         children: <Widget>[
 
-          //textfield for talk name.no integers allowed
+          //textfield for talk name. no integers allowed
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 0),
             child: TextField(
               controller: titleController,
-              //Setting the maxLines to null allows the text field automatically grow
-              //This makes it accommodate additional lines as they are entered.
               maxLines: null,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
@@ -85,8 +80,7 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
               ),
               onChanged: (value) {
                 setState(() {
-                  //check if the value contains a number before storing it.
-                  //If there's an error, update the validate to reflect it.
+                  //check for errors
                   if(value.contains(new RegExp(r'[0-9]'))) {
                     validator = TalkValidateError.noIntegerAllowed;
                     talkTitle = value;
@@ -105,7 +99,6 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
             margin: EdgeInsets.fromLTRB(40, 40, 40, 20),
             child: TextField(
               controller: durationController,
-              //TextInputType.number ensures only integers are typed.
               keyboardType: TextInputType.number,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
@@ -115,7 +108,6 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
               ),
               onChanged: (duration) {
                 setState(() {
-                  //convert duration to integer and store.
                   talkDuration = int.parse(duration);
                 });
               },

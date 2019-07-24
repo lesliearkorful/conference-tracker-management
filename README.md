@@ -1,15 +1,18 @@
-# conference_tracker_management
+# Conference Tracker Management
 
-A new Flutter project.
+This is a Flutter project for tracking conferences and generating a schedule from input.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Dependencies
+This project uses rxDart for streams
+```yaml
+dependencies:
+  rxdart: ^0.22.0
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,

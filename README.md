@@ -31,12 +31,12 @@ dependencies:
       <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/01-all-conferences.png?raw=true" />
     </td>
     <td>
-      <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/02-edit-talk.png?raw=true" />
+      <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/02-new-talk.png?raw=true" />
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/03-new-talk.png?raw=true" />
+      <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/03-edit-talk.png?raw=true" />
     </td>
     <td>
       <img src="https://github.com/lesliearkorful/conference-tracker-management/blob/master/screenshots/04-generated-schedule.png?raw=true" />

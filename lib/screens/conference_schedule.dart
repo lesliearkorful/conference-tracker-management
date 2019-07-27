@@ -12,6 +12,7 @@ class ConferenceSchedule extends StatefulWidget {
 
 class _ConferenceScheduleState extends State<ConferenceSchedule> {
   _ConferenceScheduleState(this.conferenceTalks);
+  ScrollController scrollController = ScrollController();
   final List conferenceTalks;
   List scheduleView = [];
 
@@ -42,11 +43,11 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
     
     generated.add(ScheduleItem(track: track, type: ScheduleItemType.track));
 
-    for (var i = 0; i <= (temp.length + 1); i++) {
+    for (int i = 0; i <= (temp.length + 1); i++) {
 
       for(int index = i; index < temp.length; index++) {
 
-        var item = temp[index];
+        Talk item = temp[index];
 
         if(assigned.contains(item)) {
           continue;
@@ -63,8 +64,8 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
           if(item.minutes <= morningMinutes) {
 
             if((morningMinutes%item.minutes == 0) ||
-              
-              (commonDurations.contains(item.minutes-morningMinutes)) ) {
+              (commonDurations.contains(item.minutes - morningMinutes))) {
+
                 morningMinutes -= item.minutes;
 
                 final assignedTalk = ScheduleItem(
@@ -77,7 +78,7 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
 
                 assigned.add(item);
                 generated.add(assignedTalk);
-
+                
             } else {
                 continue;
               }
@@ -94,7 +95,7 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
             );
             
             if((afternoonMinutes%item.minutes == 0) ||
-              (commonDurations.contains(item.minutes % afternoonMinutes))) {
+              (commonDurations.contains(item.minutes % afternoonMinutes)) ) {
 
               if((afternoonMinutes == 240) &&
                 (generated.contains(lunch) == false)) {
@@ -118,6 +119,11 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
               continue;
             }          
           } else {
+            
+            if((afternoonMinutes != 0 ) && (afternoonMinutes <= 240)) {
+              continue;
+            }
+
             generated.add(ScheduleItem(
                             minutes: 0,
                             name: 'Networking Event',
@@ -134,39 +140,65 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
             afternoonMinutes = 240;
             //adds a new track header
             generated.add(ScheduleItem(track: track, type: ScheduleItemType.track));
+            //continue;
           }
         }
       }
     }
 
+    
+
     //append lightning items to generated list
+    Session lightningSession;
+
+    if((afternoonMinutes == 0)) {
+
+      //append last networking item for last track to generated list
+      final lastNetworkingItem = ScheduleItem(
+                                  minutes: 0,
+                                  name: 'Networking Event',
+                                  session: Session.afternoon,
+                                  track: track,
+                                  type:  ScheduleItemType.networking
+      );
+
+      if(generated.contains(lastNetworkingItem) == false) {
+        generated.add(lastNetworkingItem);
+
+      }
+      
+      track++;
+      lightningSession = Session.morning;
+
+      final trackHeader = ScheduleItem(track: track, type: ScheduleItemType.track);
+
+      if(generated.contains(trackHeader) == false) {
+        generated.add(trackHeader);
+      }
+
+    } else if(morningMinutes == 0) {
+      lightningSession = Session.afternoon;
+
+    } else {
+      lightningSession = Session.morning;
+    }
+
+
     lightning.forEach((item) {
 
       final lightningItem = ScheduleItem(
                               minutes: item.minutes,
                               name: item.name,
-                              session: Session.afternoon,
+                              session: lightningSession,
                               track: track,
                               type: ScheduleItemType.talk
-                            );
+      );
 
       generated.add(lightningItem);
-      print('ADDED: ${lightningItem.name}');
+
     });
-
-    //append last networking item for last track to generated list
-    final lastNetworkingItem = ScheduleItem(
-                                minutes: 0,
-                                name: 'Networking Event',
-                                session: Session.afternoon,
-                                track: track,
-                                type:  ScheduleItemType.networking
-    );
-
-    if(generated.contains(lastNetworkingItem) == false) {
-      generated.add(lastNetworkingItem);
-    }
-
+      
+    
     //update the schedule view with the generated schedule
     setState(() => scheduleView = generated);
   }
@@ -180,32 +212,26 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
         centerTitle: true,
       ),
       body: ListView(
+        controller: scrollController,
+        scrollDirection: Axis.vertical,
         children: scheduleView.map<Widget>((scheduleItem) {
           
           //get the first index where this item session and track are equal
           final int sessionSwitch = scheduleView.indexWhere(
                                       (item) => (item.session == scheduleItem.session &&
                                       item.track == scheduleItem.track)
-                                    );
+          );
 
-          //the range is for calculating the accumulated minutes from start time
-          final List sessionRange = scheduleView.getRange(sessionSwitch,
-                                                          scheduleView.indexWhere(
-                                                            (item) => item == scheduleItem)
-                                                          ).toList();
+          final int currentItem = scheduleView.indexWhere((item) => item == scheduleItem);
 
-          //return Track header or a schedule item
-          return scheduleItem.type == ScheduleItemType.track ?
+          //the range is for calculating the accumulated minutes
+          //from the first index to the current index
+          final List sessionRange = scheduleView.getRange(sessionSwitch, currentItem).toList();
 
-            Container(
-              padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-              color: Colors.black.withOpacity(0.05),
-              child: Text('Track ${scheduleItem.track}',
-                textScaleFactor: 1.4,
-                style: TextStyle(
-                  color: Colors.blue[700])
-                ),
-            ) : scheduleItemWidget(scheduleItem, sessionRange);
+          return (scheduleItem.type == ScheduleItemType.track) ?
+            TrackHeader(trackNumber: scheduleItem.track) : 
+            scheduleItemWidget(scheduleItem, sessionRange);
+
         }).toList(),
       )
     );

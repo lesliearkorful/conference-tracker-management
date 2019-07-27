@@ -14,16 +14,29 @@ All talk lengths are either in minutes (not hours) or lightning (5 minutes).
 
 - You need to have the [Flutter SDK installed.](https://flutter.dev/docs/get-started/install)
 - Clone this repository on your computer with the following command:
-`git clone https://github.com/lesliearkorful/conference-tracker-management.git`
+```
+git clone https://github.com/lesliearkorful/conference-tracker-management.git
+```
+- Depending on the configuration you chose from the Flutter installation documentation, start a debug session and have a live preview of the app.
 
 ## Dependencies
-This project uses the [rxDart package](https://pub.dev/packages/rxdart) for streams
+This project uses the [rxDart package](https://pub.dev/packages/rxdart) for streams.
+The `flutter_test` package is pre-installed in Flutter for running widget tests.
 ```yaml
 dependencies:
   rxdart: ^0.22.0
-```
 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+```
+## Testing
+To run tests (widget testing precisely), run the following command (by terminal) in the root folder. 
+```
+flutter test
+```
 ## Screenshots
+Screenshots of the four screens of the app.
 
 <table>
   <tr>

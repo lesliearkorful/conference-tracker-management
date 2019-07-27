@@ -145,14 +145,15 @@ void main() {
       log(Log.screen, 'All Conferences');
     });
 
-    //await tester.tap(find.byKey(Key('Overdoing it in Python')));
-
-    
-
+  
 
     print('\nEND OF APP WIDGETS TEST REACHED.');
   });  
 }
+
+
+
+
 
 log(Log type, String message) {
     print('${logMessage[type]} : $message');

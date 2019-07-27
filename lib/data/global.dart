@@ -2,12 +2,10 @@ class Talk {
   Talk({
     this.minutes,
     this.name,
-    this.assigned,
   });
   
   final int minutes;
   final String name;
-  bool assigned;
 }
 
 class ScheduleItem {
@@ -33,6 +31,25 @@ enum ScheduleItemType {
   networking,
 }
 
+enum Session {
+  morning,
+  afternoon
+}
+
+enum TalkValidateError {
+  none,
+  noIntegerAllowed,
+  emptyText
+}
+
+//This map helps to get the info/reason for the talkValidateError
+Map talkValidatorText = {
+  TalkValidateError.emptyText : 'This cannot be empty.',
+  TalkValidateError.noIntegerAllowed  : 'Titles should not contain numbers.',
+  TalkValidateError.none  : null,
+
+};
+
 //initial data dump
 final List globalConferenceList = [
   Talk(name: 'Writing Fast Tests Against Enterprise Rails', minutes: 60),
@@ -55,22 +72,3 @@ final List globalConferenceList = [
   Talk(name: 'A World Without HackerNews', minutes: 30),
   Talk(name: 'User Interface CSS in Rails', minutes: 30),
 ];
-
-enum Session {
-  morning,
-  afternoon
-}
-
-enum TalkValidateError {
-  none,
-  noIntegerAllowed,
-  emptyText
-}
-
-//This map helps to get the info/reason for the talkValidateError
-Map talkValidatorText = {
-  TalkValidateError.emptyText : 'This cannot be empty.',
-  TalkValidateError.noIntegerAllowed  : 'Titles should not contain numbers.',
-  TalkValidateError.none  : null,
-
-};

@@ -54,10 +54,8 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-
               bloc.deleteTalk(talk);
               Navigator.pop(context);
-
             },
           )
         ],
@@ -69,6 +67,7 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 0),
             child: TextField(
+              key: Key('talkTitle'),
               controller: titleController,
               maxLines: null,
               style: TextStyle(fontSize: 20),
@@ -89,7 +88,6 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
                     talkTitle = value;
                   }
                 });
-                
               },
             )
           ),
@@ -98,6 +96,7 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 20),
             child: TextField(
+              key: Key('talkDuration'),
               controller: durationController,
               keyboardType: TextInputType.number,
               style: TextStyle(fontSize: 20),
@@ -141,7 +140,6 @@ class _ConferenceDetailsPageState extends State<ConferenceDetailsPage> {
               },
             )
           ),
-
         ],
       ),
     );

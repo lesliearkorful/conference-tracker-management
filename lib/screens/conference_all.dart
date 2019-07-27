@@ -47,6 +47,7 @@ class _ConferencesPageState extends State<ConferencesPage> {
       
       body: SafeArea(
         child: StreamBuilder(
+          //initialData: globalConferenceList,
           stream: bloc.talksObservable,
           builder: (BuildContext context, AsyncSnapshot<List>talks) {
 
@@ -54,12 +55,15 @@ class _ConferencesPageState extends State<ConferencesPage> {
 
             return ((talks.data != null) && (talks.data.length > 0)) ?
               ListView.builder(
+                scrollDirection: Axis.vertical,
                 padding: EdgeInsets.only(bottom: 80),
                 itemCount: talks.data.length,
                 itemBuilder: (BuildContext context, index) {
 
                   Talk talk = talks.data[index];
-                  String minutesForm = talk.minutes == 1 ? '${talk.minutes} minute' : talk.minutes == 5 ? 'lightning' : '${talk.minutes} minutes';
+                  String minutesForm = talk.minutes == 1 ?
+                    '${talk.minutes} minute' : talk.minutes == 5 ? 
+                        'lightning' : '${talk.minutes} minutes';
 
                   return ListTile(
                     contentPadding: EdgeInsets.fromLTRB(20, 5, 14, 0),

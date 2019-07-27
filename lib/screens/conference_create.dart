@@ -29,6 +29,7 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 0),
             child: TextField(
+              key: Key('talkTitle'),
               maxLines: null,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
@@ -56,6 +57,7 @@ class _CreateConferencePageState extends State<CreateConferencePage> {
           Container(
             margin: EdgeInsets.fromLTRB(40, 40, 40, 20),
             child: TextField(
+              key: Key('talkDuration'),
               keyboardType: TextInputType.number,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(

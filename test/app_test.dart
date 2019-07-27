@@ -150,7 +150,7 @@ void main() {
     
 
 
-    print('\nEND OF TEST REACHED.');
+    print('\nEND OF APP WIDGETS TEST REACHED.');
   });  
 }
 

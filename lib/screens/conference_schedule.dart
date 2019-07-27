@@ -151,9 +151,9 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
     //append lightning items to generated list
     Session lightningSession;
 
-    if((afternoonMinutes == 0)) {
-
-      //append last networking item for last track to generated list
+    if((afternoonMinutes == 0) || (assigned.length == conferenceTalks.length-lightning.length)) {
+      //if end of afternoon session is reached
+      //or the talks have been all assigned
       final lastNetworkingItem = ScheduleItem(
                                   minutes: 0,
                                   name: 'Networking Event',
@@ -166,7 +166,7 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
         generated.add(lastNetworkingItem);
 
       }
-      
+
       track++;
       lightningSession = Session.morning;
 
@@ -198,7 +198,20 @@ class _ConferenceScheduleState extends State<ConferenceSchedule> {
 
     });
       
-    
+      //if afternoon session is not full
+      //
+      final lastNetworkingItem = ScheduleItem(
+                                  minutes: 0,
+                                  name: 'Networking Event',
+                                  session: Session.afternoon,
+                                  track: track,
+                                  type:  ScheduleItemType.networking
+      );
+
+      if(generated.contains(lastNetworkingItem) == false) {
+        generated.add(lastNetworkingItem);
+
+      }
     //update the schedule view with the generated schedule
     setState(() => scheduleView = generated);
   }
